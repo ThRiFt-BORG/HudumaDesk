@@ -11,13 +11,7 @@ Install Node.js 20 or newer and pnpm 11. The project pins pnpm in `package.json`
 1. Create a Supabase project at [supabase.com](https://supabase.com/).
 2. In the project dashboard, open **SQL Editor**, create a query, paste all of [`supabase/schema.sql`](supabase/schema.sql), and run it. This creates the `profiles` and `requests` tables, a server-generated unique reference number, Row Level Security policies, a private image bucket and upload/read policies.
 3. In **Project Settings → API**, copy the Project URL and the **anon/public** key. These browser values are expected to be public; never put a `service_role` key in the frontend.
-4. Create a local environment file and add those values:
-
-   ```bash
-   cp .env.example .env.local
-   ```
-
-   Replace the example text in `.env.local` with the Project URL and anon key. `.env.local` is ignored by Git; do not commit it.
+4. Create a local environment file and "env" and add those values:
 5. In **Authentication → URL Configuration**, add `http://localhost:3000/**` to the allowed redirect URLs. When deployed, also add the exact Vercel site URL. Email sign-up may require clicking the confirmation link, depending on the Supabase Email provider setting.
 
 ## 2. Run and build locally
@@ -47,7 +41,7 @@ where id = (
 );
 ```
 
-Sign out and sign back in to refresh the role in the app. The sign-up trigger always creates a `citizen` profile; a browser user cannot set their own role. Run the promotion only from the trusted Supabase SQL Editor. Do not expose a service-role key in frontend code.
+Sign out and sign back in to refresh the role in the app. The sign-up trigger always creates a `citizen` profile; a browser user cannot set their own role. Run the promotion only from the trusted Supabase SQL Editor.
 
 ## 4. Push source to GitHub
 
@@ -61,7 +55,7 @@ git commit -m "Build HudumaDesk service portal"
 git push -u origin main
 ```
 
-If `origin` is already set, check it with `git remote -v` and skip `git remote add`. Environment values in `.env.local` are excluded from commits. If you are developing inside Manus, use the project’s GitHub connection flow to connect the managed project repository; do not copy access tokens into Git commands.
+If `origin` is already set, check it with `git remote -v` and skip `git remote add`. Environment values in `.env` are excluded from commits.
 
 ## 5. Deploy on Vercel
 
